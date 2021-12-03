@@ -1,0 +1,21 @@
+﻿
+@{ 
+
+    int[] array = new int[20];
+
+    for (int i = 0; i < array.Length; i++)
+    {
+        array[i] = i + 1;
+    }
+
+}
+
+<h1>Privacy and Policy</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+
+@foreach (var item in array)
+{
+    <h1>@item</h1>
+}

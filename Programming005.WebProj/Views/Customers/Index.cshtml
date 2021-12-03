@@ -1,0 +1,38 @@
+﻿@using Programming005.WebProj.Models.Customers
+@model List<CustomerModel>
+
+<table border="1" cellpadding="5" cellspacing="5">
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>PhoneNumber</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var elem in Model)
+    {
+        <tr>
+            <td>@elem.Firstname</td>
+            <td>@elem.Lastname</td>
+            <td>@elem.PhoneNumber</td>
+            <td>@elem.Email</td>
+            <td>
+                <a asp-action="Update" asp-controller="Customers" asp-route-id="@elem.Id">Update</a>
+            </td>
+            <td>
+                @{ 
+                    int id = elem.Id;
+                } 
+                <form asp-action="Delete" asp-controller="Customers">
+                    <input asp-for="@id" hidden/>
+                    <button class="btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<a type="button" asp-action="Create" asp-controller="Customers">Create</a>

@@ -1,0 +1,14 @@
+﻿@{
+
+    Random rand = new Random();
+
+    int r = rand.Next(0, 256);
+    int g = rand.Next(0, 256);
+    int b = rand.Next(0, 256);
+
+}
+
+@for (int i = 1; i <= 3; i++)
+{
+    <h1 style="color: rgb(@i, @g, @b);">Welcome to our colorful page</h1>
+}

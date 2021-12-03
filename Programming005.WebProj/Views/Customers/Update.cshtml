@@ -1,0 +1,28 @@
+﻿@using Programming005.WebProj.Models.Customers
+@model CustomerModel
+
+<form asp-action="Update" asp-controller="Customers">
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <input asp-for="Id" hidden/>
+
+    <label>Firstname: </label>
+    <input asp-for="Firstname" /> <br />
+    @*<span class="text-danger" asp-validation-for="Firstname"></span><br />*@
+
+    <label>Lastname: </label>
+    <input asp-for="Lastname" /> <br />
+    @*<span class="text-danger" asp-validation-for="Lastname"></span><br />*@
+
+    <label>Email: </label>
+    <input asp-for="Email" /> <br />
+    @*<span class="text-danger" asp-validation-for="Email"></span><br />*@
+
+    <label>PhoneNumber: </label>
+    <input type="tel" asp-for="PhoneNumber" /> <br />
+    @*<span class="text-danger" asp-validation-for="PhoneNumber"></span><br />*@
+
+    <button type="submit">Update</button>
+</form>
+
+<partial name="_ValidationScriptsPartial" />
