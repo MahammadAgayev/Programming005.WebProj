@@ -1,6 +1,7 @@
 ﻿@using Programming005.WebProj.Models.Customers
 @model CustomerModel
 
+<partial name="TextPartial"/>
 <form asp-action="Create" asp-controller="Customers">
     <div class="text-danger" asp-validation-summary="All"></div>
 
@@ -20,7 +21,9 @@
     <input type="tel" asp-for="PhoneNumber" /> <br />
     @*<span class="text-danger" asp-validation-for="PhoneNumber"></span><br />*@
 
+    <label>Age: </label>
+    <input asp-for="Age" /> <br />
+    @*<span class="text-danger" asp-validation-for="PhoneNumber"></span><br />*@
+
     <button type="submit">Create</button>
 </form>
-
-<partial name="_ValidationScriptsPartial" />

@@ -10,7 +10,7 @@ namespace Programming005.WebProj.DataAccessLayer
     public class InMemoryDatabase : IDatabase
     {
         private const string _datastate = "customers.json";
-        private const string _operationDatastate = "customers.json";
+        private const string _operationDatastate = "operation.json";
 
 
         private readonly List<Customer> _customers = new List<Customer>();

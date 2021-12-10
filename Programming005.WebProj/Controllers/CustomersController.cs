@@ -19,6 +19,15 @@ namespace Programming005.WebProj.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            //ViewBag.HeaderText = "Customers list";
+            //ViewData["HeaderText2"] = "Customers list 2";
+
+            //var message = TempData["Message"];
+            //ViewBag.Message = message;
+
+            ViewData["Message"] = "Message from viewdata, Hellooo";
+            ViewBag.Message = "Message from viewbag, Hellooo"; //--> ViewData["Message"] = "Message from viewbag, Hellooo"
+
             var customers = DB.Get();
 
             var models = new List<CustomerModel>();
@@ -62,6 +71,9 @@ namespace Programming005.WebProj.Controllers
             };
 
             DB.Add(entity);
+
+            TempData["Message"] = "Create successfully completed";
+            //ViewBag.Message = "Create successfully completed";
 
             return RedirectToAction("Index");
         }
