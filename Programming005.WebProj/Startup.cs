@@ -31,7 +31,7 @@ namespace Programming005.WebProj
             //services.AddTransient<IDatabase, InMemoryDatabase>();
             //services.AddScoped<IDatabase, InMemoryDatabase>();
             services.AddTransient<IDatabaseLogHelper, DatabaseLoghelper>();
-
+            services.AddTransient<IUnitOfWork, InMemoryUnitOfWork>();
 
             services.AddControllersWithViews();
         }
