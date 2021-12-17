@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Programming005.WebProj.DataAccessLayer.Abstraction;
 using Programming005.WebProj.DataAccessLayer.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Programming005.WebProj.Identity
 {
-    public class RoleStore : IRoleStore<Role>
+    public class RoleStore : IRoleStore<Role>, IUserPasswordStore<Account>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -23,9 +20,19 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(IdentityResult.Success);
         }
 
+        public Task<IdentityResult> CreateAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IdentityResult> DeleteAsync(Role role, CancellationToken cancellationToken)
         {
             return Task.FromResult(IdentityResult.Success);
+        }
+
+        public Task<IdentityResult> DeleteAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Dispose()
@@ -51,6 +58,16 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(role.Name.ToUpperInvariant());
         }
 
+        public Task<string> GetNormalizedUserNameAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<string> GetPasswordHashAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<string> GetRoleIdAsync(Role role, CancellationToken cancellationToken)
         {
             return Task.FromResult(role.Id.ToString());
@@ -61,8 +78,35 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(role.Name);
         }
 
+        public Task<string> GetUserIdAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<string> GetUserNameAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<bool> HasPasswordAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task SetNormalizedRoleNameAsync(Role role, string normalizedName, CancellationToken cancellationToken)
         {
+            return Task.CompletedTask;
+        }
+
+        public Task SetNormalizedUserNameAsync(Account user, string normalizedName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task SetPasswordHashAsync(Account user, string passwordHash, CancellationToken cancellationToken)
+        {
+            user.PasswordHash = passwordHash;
+
             return Task.CompletedTask;
         }
 
@@ -73,11 +117,31 @@ namespace Programming005.WebProj.Identity
             return Task.CompletedTask;
         }
 
+        public Task SetUserNameAsync(Account user, string userName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IdentityResult> UpdateAsync(Role role, CancellationToken cancellationToken)
         {
             _unitOfWork.RoleRepository.Update(role);
 
             return Task.FromResult(IdentityResult.Success);
+        }
+
+        public Task<IdentityResult> UpdateAsync(Account user, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<Account> IUserStore<Account>.FindByIdAsync(string userId, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<Account> IUserStore<Account>.FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

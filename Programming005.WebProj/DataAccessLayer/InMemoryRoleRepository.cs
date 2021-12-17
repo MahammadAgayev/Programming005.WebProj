@@ -11,7 +11,19 @@ namespace Programming005.WebProj.DataAccessLayer
 
         public InMemoryRoleRepository()
         {
-            _roles = new List<Role>();
+            _roles = new List<Role>()
+            {
+                new Role
+                {
+                    Id = 1,
+                    Name = "Admin"
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "Customer"
+                }
+            };
         }
 
         public void Add(Role role)

@@ -12,7 +12,7 @@ namespace Programming005.WebProj.DataAccessLayer
 
         public InMemoryAccountRepository()
         {
-            _accounts = new List<Account>(2);
+            _accounts = new List<Account>();
         }
 
 

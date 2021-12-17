@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Programming005.WebProj.DataAccessLayer.Abstraction;
 using Programming005.WebProj.DataAccessLayer.Domain.Entities;
 using Programming005.WebProj.Helpers.Abstraction;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 
 namespace Programming005.WebProj.Controllers
 {
+    [Authorize]
     public class CustomersController : BaseController
     {
         private readonly IDatabaseLogHelper _databaseLogHelper;

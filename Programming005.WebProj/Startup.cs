@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Programming005.WebProj.DataAccessLayer;
 using Programming005.WebProj.DataAccessLayer.Abstraction;
+using Programming005.WebProj.DataAccessLayer.Domain.Entities;
 using Programming005.WebProj.Helpers;
 using Programming005.WebProj.Helpers.Abstraction;
+using Programming005.WebProj.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +33,15 @@ namespace Programming005.WebProj
             services.AddSingleton<IDatabase, InMemoryDatabase>();
             //services.AddTransient<IDatabase, InMemoryDatabase>();
             //services.AddScoped<IDatabase, InMemoryDatabase>();
-            services.AddTransient<IDatabaseLogHelper, DatabaseLoghelper>();
-            services.AddTransient<IUnitOfWork, InMemoryUnitOfWork>();
+            services.AddSingleton<IDatabaseLogHelper, DatabaseLoghelper>();
+            services.AddSingleton<IUnitOfWork, InMemoryUnitOfWork>();
 
             services.AddControllersWithViews();
+
+            services.AddAuthentication();
+            services.AddIdentity<Account, Role>();
+            services.AddTransient<IUserStore<Account>, UserStore>();
+            services.AddTransient<IRoleStore<Role>, RoleStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +62,7 @@ namespace Programming005.WebProj
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
