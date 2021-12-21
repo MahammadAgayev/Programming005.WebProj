@@ -42,6 +42,15 @@ namespace Programming005.WebProj
             services.AddIdentity<Account, Role>();
             services.AddTransient<IUserStore<Account>, UserStore>();
             services.AddTransient<IRoleStore<Role>, RoleStore>();
+
+            services.Configure<IdentityOptions>(o =>
+            {
+                o.Password.RequireDigit = false;
+                o.Password.RequiredLength = 1;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequireUppercase = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

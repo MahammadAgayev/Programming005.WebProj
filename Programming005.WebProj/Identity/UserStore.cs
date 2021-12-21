@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Programming005.WebProj.Identity
 {
-    public class UserStore : IUserStore<Account>
+    public class UserStore : IUserStore<Account>, IUserPasswordStore<Account>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -52,6 +52,11 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(user.Username.ToUpperInvariant());
         }
 
+        public Task<string> GetPasswordHashAsync(Account user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.PasswordHash);
+        }
+
         public Task<string> GetUserIdAsync(Account user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.Id.ToString());
@@ -62,8 +67,20 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(user.Username);
         }
 
+        public Task<bool> HasPasswordAsync(Account user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(string.IsNullOrEmpty(user.PasswordHash) == false);
+        }
+
         public Task SetNormalizedUserNameAsync(Account user, string normalizedName, CancellationToken cancellationToken)
         {
+            return Task.CompletedTask;
+        }
+
+        public Task SetPasswordHashAsync(Account user, string passwordHash, CancellationToken cancellationToken)
+        {
+            user.PasswordHash = passwordHash;
+
             return Task.CompletedTask;
         }
 

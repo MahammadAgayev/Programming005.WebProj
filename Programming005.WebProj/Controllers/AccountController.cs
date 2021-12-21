@@ -64,7 +64,6 @@ namespace Programming005.WebProj.Controllers
         public IActionResult Register(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-
             return View();
         }
 
@@ -87,7 +86,7 @@ namespace Programming005.WebProj.Controllers
 
             if (result.Succeeded)
             {
-                _ = _userManager.AddToRoleAsync(account, "Customer").Result;
+                //_ = _userManager.AddToRoleAsync(account, "Customer").Result;
             }
             else
             {
@@ -97,6 +96,15 @@ namespace Programming005.WebProj.Controllers
 
 
             return Redirect(this.CreateLocalUrl(returnUrl));
+        }
+
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
 
         private string CreateLocalUrl(string retunrUrl)

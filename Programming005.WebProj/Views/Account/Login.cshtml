@@ -76,7 +76,7 @@ span.psw {
 
     <h2>Login Form</h2>
 
-    <form asp-action="Login" >
+    <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">
         <div class="imgcontainer">
             <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
         </div>
@@ -98,7 +98,7 @@ span.psw {
 
         <div asp-validation-summary="All"></div>
 
-        <a asp-action="Register" asp-controller="Account">Register if you dont have account!</a>
+        <a asp-action="Register" asp-route-returnUrl="@ViewBag.ReturnUrl" asp-controller="Account">Register if you dont have account!</a>
 
         <div class="container" style="background-color:#f1f1f1">
             <button type="button" class="cancelbtn">Cancel</button>

@@ -4,8 +4,13 @@ namespace Programming005.WebProj.DataAccessLayer
 {
     public class InMemoryUnitOfWork : IUnitOfWork
     {
-        public IAccountRepository AccountRepository => new InMemoryAccountRepository();
-        public IRoleRepository RoleRepository => new InMemoryRoleRepository();
-        public IAccountRoleRepository AccountRoleRepository => new InMemoryAccountRoleRepository();
+        private static IAccountRepository _accountRepository = new InMemoryAccountRepository();
+        private static IRoleRepository _roleRepository = new InMemoryRoleRepository();
+        private static IAccountRoleRepository _accountRoleRepository = new InMemoryAccountRoleRepository();
+
+
+        public IAccountRepository AccountRepository => _accountRepository;
+        public IRoleRepository RoleRepository => _roleRepository;
+        public IAccountRoleRepository AccountRoleRepository => _accountRoleRepository;
     }
 }

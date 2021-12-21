@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Programming005.WebProj.DataAccessLayer.Domain.Entities;
 
 namespace Programming005.WebProj.DataAccessLayer.Abstraction
 {
     public interface IAccountRoleRepository
     {
+        void Add(AccountRole accountRole);
     }
 }

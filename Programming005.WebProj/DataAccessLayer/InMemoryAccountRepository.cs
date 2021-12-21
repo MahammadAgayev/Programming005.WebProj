@@ -18,6 +18,17 @@ namespace Programming005.WebProj.DataAccessLayer
 
         public void Add(Account account)
         {
+            //var latest = _accounts.LastOrDefault();
+            //int id = 1;
+
+            //if(latest != null)
+            //{
+            //    id = latest.Id + 1;
+            //}
+
+            int id = _accounts.LastOrDefault()?.Id ?? 1;
+
+            account.Id = id;
             _accounts.Add(account);
         }
 
