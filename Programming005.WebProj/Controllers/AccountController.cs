@@ -86,7 +86,7 @@ namespace Programming005.WebProj.Controllers
 
             if (result.Succeeded)
             {
-                //_ = _userManager.AddToRoleAsync(account, "Customer").Result;
+                _ = _userManager.AddToRoleAsync(account, "Customer").Result;
             }
             else
             {

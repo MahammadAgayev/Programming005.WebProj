@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Programming005.WebProj.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CustomersController : BaseController
     {
         private readonly IDatabaseLogHelper _databaseLogHelper;

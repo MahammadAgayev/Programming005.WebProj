@@ -1,18 +1,36 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Programming005.WebProj.DataAccessLayer.Abstraction;
 using Programming005.WebProj.DataAccessLayer.Domain.Entities;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Programming005.WebProj.Identity
 {
-    public class UserStore : IUserStore<Account>, IUserPasswordStore<Account>
+    public class UserStore : IUserStore<Account>, IUserPasswordStore<Account>, IUserRoleStore<Account>
     {
         private readonly IUnitOfWork _unitOfWork;
 
         public UserStore(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public Task AddToRoleAsync(Account user, string roleName, CancellationToken cancellationToken)
+        {
+            var role = _unitOfWork.RoleRepository.GetByRolename(roleName);
+            var accountRole = new AccountRole
+            {
+                Account = user,
+                AccountId = user.Id,
+                Role = role,
+                RoleId = role.Id
+            };
+
+            _unitOfWork.AccountRoleRepository.Add(accountRole);
+
+            return Task.CompletedTask;
         }
 
         public Task<IdentityResult> CreateAsync(Account user, CancellationToken cancellationToken)
@@ -57,6 +75,14 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(user.PasswordHash);
         }
 
+        public Task<IList<string>> GetRolesAsync(Account user, CancellationToken cancellationToken)
+        {
+            var roles = _unitOfWork.AccountRoleRepository.GetByUser(user.Id);
+            var rolesList = roles.Select(x => x.Role.Name).ToList();
+
+            return Task.FromResult(rolesList as IList<string>);
+        }
+
         public Task<string> GetUserIdAsync(Account user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.Id.ToString());
@@ -67,9 +93,29 @@ namespace Programming005.WebProj.Identity
             return Task.FromResult(user.Username);
         }
 
+        public Task<IList<Account>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+        {
+            var users = _unitOfWork.AccountRoleRepository.GetByRole(roleName);
+
+            return Task.FromResult(users);
+        }
+
         public Task<bool> HasPasswordAsync(Account user, CancellationToken cancellationToken)
         {
             return Task.FromResult(string.IsNullOrEmpty(user.PasswordHash) == false);
+        }
+
+        public Task<bool> IsInRoleAsync(Account user, string roleName, CancellationToken cancellationToken)
+        {
+            var users = _unitOfWork.AccountRoleRepository.GetByRole(roleName);
+            bool isInrole = users.Any(x => x.Id == user.Id);
+
+            return Task.FromResult(isInrole);
+        }
+
+        public Task RemoveFromRoleAsync(Account user, string roleName, CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
         }
 
         public Task SetNormalizedUserNameAsync(Account user, string normalizedName, CancellationToken cancellationToken)
